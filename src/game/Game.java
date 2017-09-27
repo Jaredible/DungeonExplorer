@@ -23,9 +23,9 @@ import game.level.tile.Tile;
 public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
 	public static final String TITLE = "Dungeon Explorer";
-	public static final int GAME_WIDTH = 160;
+	public static final int GAME_WIDTH = 16 * 12;
 	public static final int GAME_HEIGHT = GAME_WIDTH / 4 * 3;
-	public static final int SCALE = 5;
+	public static final int SCALE = 4;
 	public static boolean DEV;
 
 	private BufferedImage image = new BufferedImage(GAME_WIDTH, GAME_HEIGHT, BufferedImage.TYPE_INT_RGB);
@@ -157,14 +157,11 @@ public class Game extends Canvas implements Runnable {
 			if (xo > level.w * 16 - screen.w) xo = level.w * 16 - screen.w;
 			if (yo > level.h * 16 - screen.h) yo = level.h * 16 - screen.h;
 
-			for (y = 0; y < 16; y++)
-				for (x = 0; x < 21; x++)
+			for (y = 0; y < 19; y++)
+				for (x = 0; x < 25; x++)
 					screen.render(x * 8 - ((xo / 4) & 7), y * 8 - ((yo / 4) & 7), 6, 0);
 
 			level.renderLevel(screen, xo, yo);
-			level.renderEntities(screen, xo, yo);
-
-			level.renderLight(screen, xo, yo);
 
 			ingameGUI.render(screen);
 		}

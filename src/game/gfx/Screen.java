@@ -52,6 +52,33 @@ public class Screen {
 		}
 	}
 
+	public void renderTile(int xp, int yp, int tile, int bits) {
+		xp -= xOffset;
+		yp -= yOffset;
+		boolean mirrorX = (bits & BIT_MIRROR_X) > 0;
+		boolean mirrorY = (bits & BIT_MIRROR_Y) > 0;
+
+		int xTile = tile % 32;
+		int yTile = tile / 32;
+		int toffs = xTile * 8 + yTile * 8 * SpriteSheet.tiles.width;
+
+		int x, y;
+		int xs, ys;
+		int col;
+		for (y = 0; y < 8; y++) {
+			if (y + yp < 0 || y + yp >= h) continue;
+			ys = y;
+			if (mirrorY) ys = 7 - y;
+			for (x = 0; x < 8; x++) {
+				if (x + xp < 0 || x + xp >= w) continue;
+				xs = x;
+				if (mirrorX) xs = 7 - x;
+				col = SpriteSheet.tiles.pixels[xs + ys * SpriteSheet.tiles.width + toffs];
+				if (col != 0) pixels[(x + xp) + (y + yp) * w] = col;
+			}
+		}
+	}
+
 	public void renderEntity(int xp, int yp, int tile, int bits) {
 		xp -= xOffset;
 		yp -= yOffset;
@@ -95,7 +122,7 @@ public class Screen {
 		}
 	}
 
-	public void renderLight(int x, int y, int rad, int dampen) {
+	public void renderLight(int x, int y, int rad, int dampen, boolean invert) {
 		x -= xOffset;
 		y -= yOffset;
 		int minX = x - rad;
@@ -121,11 +148,11 @@ public class Screen {
 				dist = Math.sqrt(xd * xd + yd * yd) + dampen;
 				if (dist < rad) {
 					col = pixels[xx + yy * w];
-					intensity = rad / dist;
+					intensity = invert ? dist / rad : rad / dist;
 					double n = rad / dist;
 					double rr = (dist / rad) * n;
-					double gg = dist / rad;
-					double bb = dist / rad;
+					double gg = dist / rad * n;
+					double bb = dist / rad * n;
 					r = (int) ((col >> 16 & 255) * intensity * rr);
 					g = (int) ((col >> 8 & 255) * intensity * gg);
 					b = (int) ((col & 255) * intensity * bb);

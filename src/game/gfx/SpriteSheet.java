@@ -9,6 +9,7 @@ import game.Game;
 
 public class SpriteSheet {
 	public static SpriteSheet icons;
+	public static SpriteSheet tiles;
 	public static SpriteSheet font;
 	public static SpriteSheet entities;
 	public int width, height;
@@ -25,9 +26,9 @@ public class SpriteSheet {
 		int r, g, b;
 		for (int i = 0; i < pixels.length; i++) {
 			col = pixels[i];
-			r = (int) ((col >> 16 & 255) * 0.5);
-			g = (int) ((col >> 8 & 255) * 0.5);
-			b = (int) ((col & 255) * 0.5);
+			r = (int) ((col >> 16 & 255) * 0.25);
+			g = (int) ((col >> 8 & 255) * 0.25);
+			b = (int) ((col & 255) * 0.25);
 			pixels[i] = (r & 255) << 16 | (g & 255) << 8 | b & 255;
 		}
 		return this;
@@ -36,6 +37,7 @@ public class SpriteSheet {
 	static {
 		try {
 			icons = new SpriteSheet(ImageIO.read(Game.class.getResourceAsStream("/icons.png")));
+			tiles = new SpriteSheet(ImageIO.read(Game.class.getResourceAsStream("/tiles.png")));
 			font = new SpriteSheet(ImageIO.read(Game.class.getResourceAsStream("/font.png")));
 			entities = new SpriteSheet(ImageIO.read(Game.class.getResourceAsStream("/entities.png")));
 		} catch (IOException e) {

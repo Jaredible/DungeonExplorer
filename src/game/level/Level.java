@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
+import game.Game;
 import game.entity.Entity;
 import game.entity.Player;
 import game.gfx.Screen;
@@ -102,8 +103,8 @@ public class Level {
 
 		int xp;
 		int yp;
-		int maxXD = random.nextInt(3);
-		int maxYD = random.nextInt(3);
+		int maxXD = 0 + random.nextInt(3) + random.nextInt(3);
+		int maxYD = 0 + random.nextInt(3) + random.nextInt(3);
 
 		if (first) {
 			x = (w - roomWidth) / 2;
@@ -504,36 +505,48 @@ public class Level {
 		}
 	}
 
+	private int[] tileBuffer = new int[(int) ((Math.ceil(Game.GAME_WIDTH / 16) + 1) * (Math.ceil(Game.GAME_HEIGHT / 16) + 1) * 2)];
+
 	public void renderLevel(Screen screen, int xScroll, int yScroll) {
 		int xo = xScroll >> 4;
 		int yo = yScroll >> 4;
 		int w = (screen.w + 15) >> 4;
 		int h = (screen.h + 15) >> 4;
-		screen.setOffset(xScroll, yScroll);
-		for (int y = yo; y <= h + yo; y++)
-			for (int x = xo; x <= w + xo; x++)
-				getTile(x, y).render(screen, this, x, y);
-		screen.setOffset(0, 0);
-	}
 
-	public void renderEntities(Screen screen, int xScroll, int yScroll) {
-		int xo = xScroll >> 4;
-		int yo = yScroll >> 4;
-		int w = (screen.w + 15) >> 4;
-		int h = (screen.h + 15) >> 4;
 		screen.setOffset(xScroll, yScroll);
-		for (int y = yo; y <= h + yo; y++) {
-			for (int x = xo; x <= w + xo; x++)
+
+		int x, y;
+		Tile t;
+		int i = 0;
+		for (y = yo; y <= h + yo; y++)
+			for (x = xo; x <= w + xo; x++) {
+				t = getTile(x, y);
+				if (t == Tile.air) {
+					tileBuffer[i] = x;
+					tileBuffer[tileBuffer.length - i - 1] = y;
+					i++;
+				} else t.render(screen, this, x, y);
+			}
+
+		// render lights here
+		screen.renderLight(player.x, player.y, 50 + random.nextInt(100) / 50, 10 + random.nextInt(4), false);
+		screen.renderLight(2040, 2040, 50 + random.nextInt(100) / 50, 10 + random.nextInt(4), true);
+
+		for (y = yo; y <= h + yo; y++) {
+			for (x = xo; x <= w + xo; x++)
 				if (validLocation(x, y)) rowSprites.addAll(entitiesInTiles[x + y * this.w]);
 			if (rowSprites.size() > 0) sortAndRender(screen, rowSprites);
 			rowSprites.clear();
 		}
-		screen.setOffset(0, 0);
-	}
 
-	public void renderLight(Screen screen, int xScroll, int yScroll) {
-		screen.setOffset(xScroll, yScroll);
-		screen.renderLight(player.x, player.y, 50 + random.nextInt(100) / 50, 10 + random.nextInt(4));
+		for (int j = 0; j < i; j++) {
+			x = tileBuffer[j];
+			y = tileBuffer[tileBuffer.length - j - 1];
+			tileBuffer[j] = 0;
+			tileBuffer[tileBuffer.length - j - 1] = 0;
+			getTile(x, y).render(screen, this, x, y);
+		}
+
 		screen.setOffset(0, 0);
 	}
 
