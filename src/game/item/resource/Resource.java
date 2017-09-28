@@ -1,6 +1,6 @@
 package game.item.resource;
 
-import game.entity.Player;
+import game.entity.Bot;
 import game.level.Level;
 import game.level.tile.Tile;
 
@@ -23,7 +23,7 @@ public class Resource {
 		this.name = name;
 	}
 
-	public boolean interactOn(Tile tile, Level level, int xt, int yt, Player player, int attackDir) {
+	public boolean interactOn(Tile tile, Level level, int xt, int yt, Bot bot, int attackDir) {
 		return false;
 	}
 }

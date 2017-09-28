@@ -116,11 +116,11 @@ public class Entity {
 		return true;
 	}
 
-	public boolean interact(Player player, Item item, int attackDir) {
-		return item.interact(player, this, attackDir);
+	public boolean interact(Bot bot, Item item, int attackDir) {
+		return item.interact(bot, this, attackDir);
 	}
 
-	public boolean use(Player player, int attackDir) {
+	public boolean use(Bot bot, int attackDir) {
 		return false;
 	}
 

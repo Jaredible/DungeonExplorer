@@ -3,7 +3,7 @@ package game.crafting;
 import java.util.ArrayList;
 import java.util.List;
 
-import game.entity.Player;
+import game.entity.Bot;
 import game.gfx.Screen;
 import game.gui.ListItem;
 import game.item.Item;
@@ -26,5 +26,5 @@ public abstract class Recipe implements ListItem {
 	public void renderInventory(Screen screen, int x, int y) {
 	}
 
-	public abstract void craft(Player player);
+	public abstract void craft(Bot bot);
 }

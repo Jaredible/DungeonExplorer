@@ -1,7 +1,7 @@
 package game.level.tile;
 
+import game.entity.Bot;
 import game.entity.Entity;
-import game.entity.Player;
 import game.gfx.Screen;
 import game.item.Item;
 import game.level.Level;
@@ -39,14 +39,14 @@ public class Tile {
 	public void steppedOn(Level level, int xt, int yt, Entity entity) {
 	}
 
-	public boolean interact(Level level, int xt, int yt, Player player, Item item, int attackDir) {
+	public boolean interact(Level level, int xt, int yt, Bot bot, Item item, int attackDir) {
 		return false;
 	}
 
 	public void bumpedInto(Level level, int xt, int yt, Entity entity) {
 	}
 
-	public boolean use(Level level, int xt, int yt, Player player, int attackDir) {
+	public boolean use(Level level, int xt, int yt, Bot bot, int attackDir) {
 		return false;
 	}
 }

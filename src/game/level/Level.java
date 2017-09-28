@@ -8,11 +8,11 @@ import java.util.Random;
 
 import game.Game;
 import game.entity.Entity;
-import game.entity.Player;
 import game.gfx.Screen;
 import game.level.tile.Tile;
 
 public class Level {
+	private Game game;
 	public int w, h;
 	public int startX, startY;
 	public int endX, endY;
@@ -35,10 +35,9 @@ public class Level {
 	private LevelInfo info;
 	private List<Island> islands = new ArrayList<>();
 
-	public Player player;
-
 	@SuppressWarnings("unchecked")
-	protected Level(int w, int h) {
+	protected Level(Game game, int w, int h) {
+		this.game = game;
 		this.w = w;
 		this.h = h;
 
@@ -50,8 +49,8 @@ public class Level {
 			entitiesInTiles[i] = new ArrayList<Entity>();
 	}
 
-	public Level(LevelInfo info) {
-		this(info.getWidth(), info.getHeight());
+	public Level(Game game, LevelInfo info) {
+		this(game, info.getWidth(), info.getHeight());
 		this.info = info;
 	}
 
@@ -529,7 +528,7 @@ public class Level {
 			}
 
 		// render lights here
-		screen.renderLight(player.x, player.y, 50 + random.nextInt(100) / 50, 10 + random.nextInt(4), false);
+		screen.renderLight(game.player.x, game.player.y, 50 + random.nextInt(100) / 50, 10 + random.nextInt(4), false);
 		screen.renderLight(2040, 2040, 50 + random.nextInt(100) / 50, 10 + random.nextInt(4), true);
 
 		for (y = yo; y <= h + yo; y++) {
@@ -582,7 +581,6 @@ public class Level {
 	}
 
 	public void add(Entity entity) {
-		if (entity instanceof Player) player = (Player) entity;
 		entity.removed = false;
 		entities.add(entity);
 		entity.init(this);

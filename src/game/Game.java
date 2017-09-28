@@ -10,7 +10,7 @@ import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 
-import game.entity.Player;
+import game.entity.Bot;
 import game.gfx.Screen;
 import game.gfx.SpriteSheet;
 import game.gui.GuiIngame;
@@ -39,7 +39,7 @@ public class Game extends Canvas implements Runnable {
 	public int tickCount = 0;
 
 	public Level level;
-	public Player player;
+	public Bot player;
 
 	public void start() {
 		running = true;
@@ -51,12 +51,16 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public void startGame() {
-		level = new Level(new LevelInfo(256, 256, 300));
+		level = new Level(this, new LevelInfo(256, 256, 300));
 		level.generate(1);
 
-		player = new Player(this, input);
+		player = new Bot(this, input);
+		Bot b = new Bot(this, input);
+
 		player.findStartPos(level);
 		level.add(player);
+		b.findStartPos(level);
+		level.add(b);
 
 		setGuiScreen(null);
 	}

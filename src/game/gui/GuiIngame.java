@@ -15,8 +15,8 @@ public class GuiIngame extends Gui {
 	}
 
 	public void render(Screen screen) {
-		for (int i = 0; i < game.player.health; i++)
-			screen.pixels[(0 + i * 2) + 0 * screen.w] = 0xff0000;
+		// for (int i = 0; i < game.player.health; i++) // TODO
+		// screen.pixels[(0 + i * 2) + 0 * screen.w] = 0xff0000;
 
 		Font.draw("Hello", screen, 0, 6, 0xff0000);
 	}

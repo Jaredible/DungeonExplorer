@@ -1,17 +1,17 @@
 package game.item;
 
+import game.entity.Bot;
 import game.entity.Entity;
-import game.entity.Player;
 import game.gfx.Screen;
 import game.level.Level;
 import game.level.tile.Tile;
 
 public class Item {
-	public boolean interact(Player player, Entity entity, int attackDir) {
+	public boolean interact(Bot bot, Entity entity, int attackDir) {
 		return false;
 	}
 
-	public boolean interactOn(Tile tile, Level level, int xt, int yt, Player player, int attackDir) {
+	public boolean interactOn(Tile tile, Level level, int xt, int yt, Bot bot, int attackDir) {
 		return false;
 	}
 

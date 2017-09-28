@@ -1,6 +1,6 @@
 package game.crafting;
 
-import game.entity.Player;
+import game.entity.Bot;
 import game.item.ResourceItem;
 import game.item.resource.Resource;
 
@@ -17,6 +17,6 @@ public class ResourceRecipe extends Recipe {
 		this.resource = resource;
 	}
 
-	public void craft(Player player) {
+	public void craft(Bot bot) {
 	}
 }
