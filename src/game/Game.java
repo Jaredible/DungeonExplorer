@@ -187,7 +187,7 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public static void main(String[] args) {
-		DEV = args[0].equals("DEV");
+		if (args.length > 0) DEV = args[0].equals("DEV");
 
 		Game game = new Game();
 		Dimension dim = new Dimension(GAME_WIDTH * SCALE, GAME_HEIGHT * SCALE);
