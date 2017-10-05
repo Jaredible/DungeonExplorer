@@ -54,10 +54,11 @@ public class Game extends Canvas implements Runnable {
 		level = new Level(this, new LevelInfo(256, 256, 300));
 		level.generate(1);
 
-		player = new Bot(this, input);
+		Bot a = new Bot(this, input);
 		Bot b = new Bot(this, input);
+		changeBot(a);
 
-		player.findStartPos(level);
+		a.findStartPos(level);
 		level.add(player);
 		b.findStartPos(level);
 		level.add(b);
@@ -184,6 +185,11 @@ public class Game extends Canvas implements Runnable {
 		g.drawImage(image, x, y, xo, yo, null);
 		g.dispose();
 		bs.show();
+	}
+
+	public void changeBot(Bot bot) {
+		player = bot;
+		System.out.println("Current player " + player + " changed to " + bot);
 	}
 
 	public static void main(String[] args) {

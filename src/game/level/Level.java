@@ -248,8 +248,8 @@ public class Level {
 			}
 
 		// render lights here
-		screen.renderLight(game.player.x, game.player.y, 50 + random.nextInt(100) / 50, 10 + random.nextInt(4), false);
-		screen.renderLight(2040, 2040, 50 + random.nextInt(100) / 50, 10 + random.nextInt(4), true);
+		screen.renderLight(game.player.x, game.player.y, 50 + random.nextInt(100) / 50, 10 + random.nextInt(4), false, 1, 1, 0);
+//		screen.renderLight(2040, 2040, 50 + random.nextInt(100) / 50, 10 + random.nextInt(4), true);
 
 		for (y = yo; y <= h + yo; y++) {
 			for (x = xo; x <= w + xo; x++)
