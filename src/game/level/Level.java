@@ -226,6 +226,9 @@ public class Level {
 
 	private int[] tileBuffer = new int[(int) ((Math.ceil(Game.GAME_WIDTH / 16) + 1) * (Math.ceil(Game.GAME_HEIGHT / 16) + 1) * 2)];
 
+	boolean a = false;
+	int b = 0;
+
 	public void renderLevel(Screen screen, int xScroll, int yScroll) {
 		int xo = xScroll >> 4;
 		int yo = yScroll >> 4;
@@ -247,9 +250,10 @@ public class Level {
 				} else t.render(screen, this, x, y);
 			}
 
+		if (b++ % 7 == 0) a = !a;
 		// render lights here
-		screen.renderLight(game.player.x, game.player.y, 50 + random.nextInt(100) / 50, 10 + random.nextInt(4), false, 1, 1, 0);
-//		screen.renderLight(2040, 2040, 50 + random.nextInt(100) / 50, 10 + random.nextInt(4), true);
+		screen.renderLight(game.player.x, game.player.y, 50, 10, false, a, false, !a);
+		screen.renderLight(2040, 2040, 50 + (int) (Math.sin(b / Math.PI) * 2), 10, true, true, true, true);
 
 		for (y = yo; y <= h + yo; y++) {
 			for (x = xo; x <= w + xo; x++)

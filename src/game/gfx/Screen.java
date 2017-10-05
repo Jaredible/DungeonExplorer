@@ -1,5 +1,7 @@
 package game.gfx;
 
+import java.util.Random;
+
 public class Screen {
 	public final int w, h;
 	public int[] pixels;
@@ -122,7 +124,9 @@ public class Screen {
 		}
 	}
 
-	public void renderLight(int x, int y, int rad, int dampen, boolean invert, double red, double green, double blue) {
+	private Random r = new Random();
+
+	public void renderLight(int x, int y, int rad, int dampen, boolean invert, boolean red, boolean green, boolean blue) {
 		x -= xOffset;
 		y -= yOffset;
 		int minX = x - rad;
@@ -148,20 +152,16 @@ public class Screen {
 				dist = Math.sqrt(xd * xd + yd * yd) + dampen;
 				if (dist < rad) {
 					col = pixels[xx + yy * w];
-					intensity = rad / dist;
-					double n = rad / dist;
-					double rr = 0;
-					double gg = 0;
-					double bb = 0;
-					if (red == 0) rr = (dist / rad);
-					else rr = red;
-					if (green == 0) gg = (dist / rad);
-					else gg = green;
-					if (blue == 0) bb = (dist / rad);
-					else bb = blue;
-					r = (int) ((col >> 16 & 255) * intensity * rr);
-					g = (int) ((col >> 8 & 255) * intensity * gg);
-					b = (int) ((col & 255) * intensity * bb);
+					intensity = invert ? dist / rad : rad / dist;
+					double rr = 1;
+					double gg = 1;
+					double bb = 1;
+					if (red) rr = intensity;
+					if (green) gg = intensity;
+					if (blue) bb = intensity;
+					r = (int) ((col >> 16 & 255) * rr);
+					g = (int) ((col >> 8 & 255) * gg);
+					b = (int) ((col & 255) * bb);
 					if (r > 255) r = 255;
 					if (g > 255) g = 255;
 					if (b > 255) b = 255;
