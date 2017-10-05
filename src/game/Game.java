@@ -26,7 +26,7 @@ public class Game extends Canvas implements Runnable {
 	public static final int GAME_WIDTH = 16 * 12;
 	public static final int GAME_HEIGHT = GAME_WIDTH / 4 * 3;
 	public static final int SCALE = 4;
-	public static boolean DEV;
+	public static boolean DEV = false;
 
 	private BufferedImage image = new BufferedImage(GAME_WIDTH, GAME_HEIGHT, BufferedImage.TYPE_INT_RGB);
 	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();

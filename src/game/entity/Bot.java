@@ -41,6 +41,7 @@ public class Bot extends Living {
 					// set menu screen here
 				}
 			}
+		} else {
 		}
 	}
 
